@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bitly WhatsApp Automation"
+  short_description: "Generate Bitly links and WhatsApp KOL copy"
+  default_prompt: "Use $bitly-whatsapp-automation to collect KOL/link details, create Bitly short links, and draft WhatsApp publishing instructions."
