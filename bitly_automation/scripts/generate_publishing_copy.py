@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the Botslab WhatsApp publishing reply from confirmed short links."""
+"""Render Botslab publishing/caption copy from confirmed short links."""
 
 from __future__ import annotations
 
@@ -54,7 +54,7 @@ def detect_product_code(product: str) -> str:
     if len(matches) > 1:
         raise CopyError(f"Product is ambiguous; detected multiple supported codes: {', '.join(matches)}.")
     raise CopyError(
-        "Unsupported product. Current WhatsApp automation only supports: "
+        "Unsupported product. Current publishing-copy automation only supports: "
         + ", ".join(SUPPORTED_PRODUCT_LABELS[code] for code in SUPPORTED_PRODUCTS)
         + "."
     )
@@ -123,7 +123,7 @@ The video looks great, and you’re all set to go. Feel free to pick your prefer
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Generate WhatsApp publishing copy for supported Botslab products.")
+    parser = argparse.ArgumentParser(description="Generate publishing/caption copy for supported Botslab products.")
     parser.add_argument("--product", required=True)
     parser.add_argument("--amazon-link", required=True)
     parser.add_argument("--botslab-link", required=True)

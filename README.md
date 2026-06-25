@@ -23,7 +23,7 @@ Keep each skill self-contained so it can be copied, installed, or connected to a
 
 ## Current Skills
 
-- `bitly_automation`: Generates Bitly short links for Botslab KOL workflows and renders WhatsApp publishing copy.
+- `bitly_automation`: Generates Bitly short links for Botslab KOL workflows and can render platform-neutral publishing/caption copy.
 
 ## Secret Handling
 

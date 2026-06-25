@@ -1,13 +1,13 @@
 ---
-name: bitly-whatsapp-automation
-description: Automate Botslab KOL Bitly link generation and WhatsApp publishing copy. Use when an agent needs to collect a KOL name, Amazon and Botslab long URLs, optional Amazon and Botslab promo codes, look up KOL product/country data from the configured Feishu Bitable, confirm details with the user, call bitly_shorten.py twice, validate the product is one of G980H, G300, W510, R810, or W101（window cam）, and produce WhatsApp reply copy.
+name: bitly-automation
+description: Automate Botslab KOL Bitly short-link generation. Use when an agent sees requests about Bitly, bitly links, short links, 短链, 短链接, 链接缩短, 短链制作, 生成短链, Amazon/Botslab tracking links, or Botslab KOL link automation; the workflow collects KOL name, Amazon and Botslab long URLs, optional promo codes, looks up product/country data from Feishu Bitable, confirms details, calls bitly_shorten.py twice, validates supported products, and can generate platform-neutral publishing/caption copy.
 ---
 
-# Bitly WhatsApp Automation
+# Bitly Automation
 
 ## Purpose
 
-Use this skill to run the Botslab KOL short-link and WhatsApp-copy workflow end to end. Keep the interaction stateful: do not skip required user confirmations, and do not generate final WhatsApp copy until the user has confirmed the KOL/product/country/URL/promo-code summary and the product has been confirmed as one of the five supported products.
+Use this skill to run the Botslab KOL Bitly short-link workflow end to end. Trigger it for Bitly, short-link, 短链, 短链接, 链接缩短, or short-link production requests. Keep the interaction stateful: do not skip required user confirmations, and do not generate final publishing/caption copy until the user has confirmed the KOL/product/country/URL/promo-code summary and the product has been confirmed as one of the five supported products.
 
 ## Runtime Requirements
 
@@ -26,7 +26,7 @@ Default Feishu Bitable configuration:
 - Product field: `测评产品`
 - Country field: `国家`
 
-Use `scripts/feishu_kol_lookup.py` for KOL lookup and `scripts/generate_whatsapp_copy.py` for final copy rendering. Use the sibling `bitly_shorten.py` script for Bitly generation.
+Use `scripts/feishu_kol_lookup.py` for KOL lookup and `scripts/generate_publishing_copy.py` for final copy rendering. Use the sibling `bitly_shorten.py` script for Bitly generation.
 
 ## Workflow
 
@@ -112,11 +112,11 @@ Parse the JSON output and capture `short_link`. After both succeed, tell the use
 已经根据您提供的相关信息生成amazon短链接：xxx，生成botslab独立站短链接：xxx
 ```
 
-If a Bitly call fails, show the relevant error and stop for correction. Do not continue to WhatsApp-copy generation with missing short links.
+If a Bitly call fails, show the relevant error and stop for correction. Do not continue to publishing-copy generation with missing short links.
 
 ### 5. Confirm Supported Product And Tags
 
-The final WhatsApp copy can only be generated for one of:
+The final publishing/caption copy can only be generated for one of:
 
 - `G980H`
 - `G300`
@@ -130,7 +130,7 @@ Infer the product code from the confirmed product name. For `W101（window cam�
 我判断您与达人合作的选品是xxx，这个信息正确吗？如正确请回复”正确“，如不正确请告诉我正确的选品是G980H，G300,W510,R810,W101（window cam）中的哪一个？
 ```
 
-Apply the same generous confirmation rule here: `OK`, `好的`, `行`, `可以`, `没问题`, `正确`, and similar replies all mean the user has confirmed. If the user corrects it to one of the five supported products, use the corrected product. If the user insists on any other product, stop the WhatsApp-copy generation flow and explain that the current automation only supports those five products.
+Apply the same generous confirmation rule here: `OK`, `好的`, `行`, `可以`, `没问题`, `正确`, and similar replies all mean the user has confirmed. If the user corrects it to one of the five supported products, use the corrected product. If the user insists on any other product, stop the publishing-copy generation flow and explain that the current automation only supports those five products.
 
 Use these exact tag mappings, rendered as plain text:
 
@@ -140,12 +140,12 @@ Use these exact tag mappings, rendered as plain text:
 - `R810`: `#Botslab #BotslabR810 #doorbell`
 - `W101（window cam）`: `#Botslab #Botslabwindowcamera #BotslabW101 #windowcamera`
 
-### 6. Generate WhatsApp Copy
+### 6. Generate Publishing Copy
 
 Use the helper script:
 
 ```bash
-python3 scripts/generate_whatsapp_copy.py \
+python3 scripts/generate_publishing_copy.py \
   --product "<supported_product>" \
   --amazon-link "<amazon_short_link>" \
   --botslab-link "<botslab_short_link>" \
@@ -163,11 +163,11 @@ When a promo code is absent, remove the corresponding `at least ... off after co
 
 ## Guardrails
 
-- Keep all user-facing workflow prompts in Chinese until the final WhatsApp template text.
+- Keep all user-facing workflow prompts in Chinese until the final English publishing template text.
 - Never expose Feishu or Bitly credentials.
 - Do not skip the Feishu fuzzy-match confirmation when exact matching fails.
 - Treat confirmations generously: `OK`, `好的`, `行`, `可以`, `没问题`, `正确`, and similar affirmative replies should all count.
 - Do not skip the full information confirmation before creating Bitly links.
-- Do not generate final WhatsApp copy for unsupported products.
+- Do not generate final publishing/caption copy for unsupported products.
 - Preserve `G300` tag as `#BotslabG300H`.
 - Render `W101（window cam）` tags as plain hashtags, not Markdown links.

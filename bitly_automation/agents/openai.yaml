@@ -1,4 +1,4 @@
 interface:
-  display_name: "Bitly WhatsApp Automation"
-  short_description: "Generate Bitly links and WhatsApp KOL copy"
-  default_prompt: "Use $bitly-whatsapp-automation to collect KOL/link details, create Bitly short links, and draft WhatsApp publishing instructions."
+  display_name: "Bitly Automation"
+  short_description: "Generate Botslab Bitly short links"
+  default_prompt: "Use $bitly-automation to collect KOL/link details, create Bitly short links, and draft publishing instructions when needed."
