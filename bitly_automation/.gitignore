@@ -1,0 +1,21 @@
+# Local credentials for this skill
+.env
+.env.*
+!.env.example
+
+# Python runtime artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Local runs and temporary artifacts
+outputs/
+work/
+tmp/
+*.log
+
+# Local API/debug captures
+feishu_records*.json
+bitly_response*.json
+*_response.json
