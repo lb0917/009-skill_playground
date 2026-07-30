@@ -1,0 +1,4 @@
+interface:
+  display_name: "Email Collect & Analyze"
+  short_description: "Archive, verify, and organize Gmail mailboxes"
+  default_prompt: "Use $email-collect-analyze to archive a Gmail mailbox, verify the declared scope, and organize fresh local records."

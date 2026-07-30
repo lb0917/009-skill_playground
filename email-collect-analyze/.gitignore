@@ -1,0 +1,11 @@
+email_archive/
+exports/
+raw/
+derived/
+*.sqlite
+*.sqlite3
+*.db
+*.eml
+*.jsonl
+__pycache__/
+*.py[cod]
